@@ -39,5 +39,10 @@ Spree::OrdersController.class_eval do
     params[:options][:product_customizations] = product_customizations
     params[:options][:customization_price] = params[:customization_price] if params[:customization_price]
   end
+  options2 = {}
+  options2['ad_hoc_option_values'] = options['ad_hoc_option_values']
+  options2['product_customizations'] = options['product_customizations']
+  options2['customization_price'] = options['customization_price'] if options['customization_price']
 
+  line_item.options = ActionController::Parameters.new(options2).permit(Spree::PermittedAttributes.line_item_attributes).to_h
 end
